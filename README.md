@@ -2,7 +2,7 @@
 
 A curated set of JDK 25 libraries — each module fills a real gap where the standard library or ecosystem leaves you writing boilerplate.
 
-> **做到极致** (pursue excellence) — every tool solves a real problem. Small & refined.
+> **Pursue excellence** — every tool solves a real problem. Small & refined.
 
 ## Modules
 
