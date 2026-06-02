@@ -2,6 +2,8 @@ package cc.ashclaw.common4j.core.time;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Locale;
 
 /**
@@ -66,13 +68,19 @@ public final class DateConstants {
 
     // ==================== Partial date formatters ====================
 
-    /** yyyy-MM — year-month. */
+    /** yyyy-MM — year-month, with day defaulting to 1. */
     public static final DateTimeFormatter YEAR_MONTH_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM", Locale.ROOT);
+            new DateTimeFormatterBuilder()
+                    .appendPattern("yyyy-MM")
+                    .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+                    .toFormatter(Locale.ROOT);
 
-    /** MM-dd — month-day. */
+    /** MM-dd — month-day, with year defaulting to 2000. */
     public static final DateTimeFormatter MONTH_DAY_FORMATTER =
-            DateTimeFormatter.ofPattern("MM-dd", Locale.ROOT);
+            new DateTimeFormatterBuilder()
+                    .appendPattern("MM-dd")
+                    .parseDefaulting(ChronoField.YEAR, 2000)
+                    .toFormatter(Locale.ROOT);
 
     // ==================== Common time zones ====================
 
