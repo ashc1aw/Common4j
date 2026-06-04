@@ -15,6 +15,31 @@
 
     <name>common4j-bom</name>
     <description>Common4j Bill of Materials — unified version management</description>
+    <url>https://github.com/ashc1aw/common4j</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:https://github.com/ashc1aw/common4j.git</connection>
+        <developerConnection>scm:https://github.com/ashc1aw/common4j.git</developerConnection>
+        <url>https://github.com/ashc1aw/common4j</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Ryson</name>
+            <email>ryson@ashclaw.cc</email>
+            <organization>AshClaw</organization>
+            <organizationUrl>https://github.com/ashc1aw</organizationUrl>
+        </developer>
+    </developers>
 
     <dependencyManagement>
         <dependencies>
