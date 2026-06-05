@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Practical collection utilities bridging gaps in the JDK.
  *
- * <h3>Partition — batch processing</h3>
+ * <b>Partition — batch processing</b>
  * <pre>{@code
  * var items = List.of("a", "b", "c", "d", "e");
  *
@@ -20,7 +20,7 @@ import java.util.Set;
  * }
  * }</pre>
  *
- * <h3>Set operations</h3>
+ * <b>Set operations</b>
  * <pre>{@code
  * var a = Set.of(1, 2, 3);
  * var b = Set.of(2, 3, 4);
@@ -46,6 +46,7 @@ public final class CollectionUtils {
      * Each sublist is an unmodifiable copy of the original.
      * The last sublist may be smaller if the size is not evenly divisible.
      *
+     * @param <T>  the element type
      * @param list the list to partition
      * @param size the maximum size of each partition, must be positive
      * @return a list of partitions, each an unmodifiable {@link List}
@@ -71,6 +72,13 @@ public final class CollectionUtils {
     /**
      * Returns the elements present in all given collections as an unmodifiable set.
      * Requires at least 2 collections.
+     *
+     * @param <T>   the element type
+     * @param first the first collection
+     * @param second the second collection
+     * @param rest  additional collections (optional)
+     * @return an unmodifiable set containing the intersection of all collections
+     * @throws NullPointerException if any collection is null
      */
     @SafeVarargs
     public static <T> Set<T> intersection(Collection<T> first, Collection<T> second, Collection<T>... rest) {
@@ -88,6 +96,13 @@ public final class CollectionUtils {
     /**
      * Returns the elements present in any of the given collections as an unmodifiable set.
      * Requires at least 2 collections.
+     *
+     * @param <T>   the element type
+     * @param first the first collection
+     * @param second the second collection
+     * @param rest  additional collections (optional)
+     * @return an unmodifiable set containing the union of all collections
+     * @throws NullPointerException if any collection is null
      */
     @SafeVarargs
     public static <T> Set<T> union(Collection<T> first, Collection<T> second, Collection<T>... rest) {
@@ -104,6 +119,12 @@ public final class CollectionUtils {
 
     /**
      * Returns the elements in {@code source} that are not in {@code remove} as an unmodifiable set.
+     *
+     * @param <T>    the element type
+     * @param source the source collection
+     * @param remove  the collection whose elements to exclude
+     * @return an unmodifiable set containing elements in source but not in remove
+     * @throws NullPointerException if either argument is null
      */
     public static <T> Set<T> difference(Collection<T> source, Collection<T> remove) {
         Objects.requireNonNull(source, "source must not be null");
