@@ -9,7 +9,7 @@ import java.util.Objects;
  * <p>For basic encode/decode, use {@link HexFormat#of() HexFormat.of()} directly.
  * HexUtils fills the gaps it doesn't cover.</p>
  *
- * <h3>Hex dump</h3>
+ * <b>Hex dump</b>
  * <pre>{@code
  * byte[] data = {0x48, 0x65, 0x6C, 0x6C, 0x6F, ...};
  *
