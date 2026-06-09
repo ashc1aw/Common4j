@@ -1,3 +1,4 @@
+/** Common4j Core — foundation utilities with zero external dependencies. */
 module cc.ashclaw.common4j.core {
     exports cc.ashclaw.common4j.core.codec;
     exports cc.ashclaw.common4j.core.collections;
