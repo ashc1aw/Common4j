@@ -60,6 +60,8 @@ public final class DateUtils {
      * Returns the start of today ({@code 00:00:00}) in the system default time zone.
      *
      * <p>Prefer {@link #startOfDay(ZoneId)} for explicit zone control.
+     *
+     * @return the start of today at 00:00:00 in the system default time zone
      */
     public static LocalDateTime startOfDay() {
         return LocalDate.now().atStartOfDay();
@@ -69,6 +71,7 @@ public final class DateUtils {
      * Returns the start of today ({@code 00:00:00}) in the given zone.
      *
      * @param zone the time zone, not null
+     * @return the start of today at 00:00:00 in the given zone
      */
     public static LocalDateTime startOfDay(ZoneId zone) {
         Objects.requireNonNull(zone, "zone must not be null");
@@ -83,6 +86,8 @@ public final class DateUtils {
      * <p>The return value has nanosecond precision. If downstream systems only
      * support milliseconds, use the next day's {@code startOfDay()} as an
      * exclusive upper bound instead.
+     *
+     * @return the end of today at 23:59:59.999999999 in the system default time zone
      */
     public static LocalDateTime endOfDay() {
         return LocalDate.now().atTime(LocalTime.MAX);
@@ -92,6 +97,7 @@ public final class DateUtils {
      * Returns the end of today ({@code 23:59:59.999999999}) in the given zone.
      *
      * @param zone the time zone, not null
+     * @return the end of today at 23:59:59.999999999 in the given zone
      */
     public static LocalDateTime endOfDay(ZoneId zone) {
         Objects.requireNonNull(zone, "zone must not be null");
