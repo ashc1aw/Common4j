@@ -15,17 +15,17 @@ import java.util.concurrent.atomic.AtomicLong;
  * I/O utilities for everyday file and classpath operations that are still
  * verbose with the JDK alone.
  *
- * <h3>Recursive delete</h3>
+ * <b>Recursive delete</b>
  * <pre>{@code
  * IoUtils.deleteRecursive(Path.of("/tmp/build"));
  * }</pre>
  *
- * <h3>Directory size</h3>
+ * <b>Directory size</b>
  * <pre>{@code
  * long bytes = IoUtils.size(Path.of("/data"));
  * }</pre>
  *
- * <h3>Classpath resources</h3>
+ * <b>Classpath resources</b>
  * <pre>{@code
  * String content = IoUtils.resourceAsString("config/defaults.json");
  * String content = IoUtils.resourceAsString(MyClass.class, "schema.sql");
