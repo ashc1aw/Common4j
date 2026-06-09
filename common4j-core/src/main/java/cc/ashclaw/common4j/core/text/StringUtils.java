@@ -3,19 +3,19 @@ package cc.ashclaw.common4j.core.text;
 /**
  * String utilities bridging gaps the JDK still leaves open.
  *
- * <h3>Naming conventions</h3>
+ * <b>Naming conventions</b>
  * <pre>{@code
  * StringUtils.camelToSnake("userName");   // "user_name"
  * StringUtils.snakeToCamel("user_name");  // "userName"
  * }</pre>
  *
- * <h3>Case helpers</h3>
+ * <b>Case helpers</b>
  * <pre>{@code
  * StringUtils.capitalize("hello");    // "Hello"
  * StringUtils.uncapitalize("Hello");  // "hello"
  * }</pre>
  *
- * <h3>Null-safe defaults</h3>
+ * <b>Null-safe defaults</b>
  * <pre>{@code
  * StringUtils.defaultIfBlank(input, "N/A");
  * StringUtils.defaultString(input, "");
@@ -117,6 +117,9 @@ public final class StringUtils {
      * capitalize("")       → ""
      * capitalize(null)     → null
      * }</pre>
+     *
+     * @param value the string to capitalize, may be null
+     * @return the capitalized string, or null if input is null
      */
     public static String capitalize(String value) {
         if (value == null) return null;
@@ -135,6 +138,9 @@ public final class StringUtils {
      * uncapitalize("")       → ""
      * uncapitalize(null)     → null
      * }</pre>
+     *
+     * @param value the string to uncapitalize, may be null
+     * @return the uncapitalized string, or null if input is null
      */
     public static String uncapitalize(String value) {
         if (value == null) return null;
@@ -155,8 +161,8 @@ public final class StringUtils {
      * truncate(null, 5)           → null
      * }</pre>
      *
-     * @param value    the string to truncate, may be null
-     * @param maxLen   maximum length including the ellipsis (must be at least 3)
+     * @param value  the string to truncate, may be null
+     * @param maxLen maximum length including the ellipsis (must be at least 3)
      * @return the truncated string, or null if input is null
      * @throws IllegalArgumentException if maxLen is less than 3
      */
@@ -178,30 +184,41 @@ public final class StringUtils {
      * defaultIfBlank(null, "N/A")     → "N/A"
      * defaultIfBlank("", "N/A")       → "N/A"
      * }</pre>
+     *
+     * @param value         the string to check, may be null
+     * @param defaultValue the default value to return if blank
+     * @return the original string if non-blank, otherwise the default value
      */
     public static String defaultIfBlank(String value, String defaultValue) {
         return value == null || value.isBlank() ? defaultValue : value;
     }
 
     /**
-     * Returns the input string if non-null, or an empty string otherwise.
+     * Returns the string if non-null, or an empty string otherwise.
      *
      * <pre>{@code
      * defaultString("hello")  → "hello"
      * defaultString(null)     → ""
      * }</pre>
+     *
+     * @param value the string to check, may be null
+     * @return the original string if non-null, otherwise an empty string
      */
     public static String defaultString(String value) {
         return value == null ? "" : value;
     }
 
     /**
-     * Returns the input string if non-null, or the given default otherwise.
+     * Returns the string if non-null, or the given default otherwise.
      *
      * <pre>{@code
      * defaultString(null, "N/A")  → "N/A"
      * defaultString("hi", "N/A")  → "hi"
      * }</pre>
+     *
+     * @param value         the string to check, may be null
+     * @param defaultValue the default value to return if null
+     * @return the original string if non-null, otherwise the default value
      */
     public static String defaultString(String value, String defaultValue) {
         return value == null ? defaultValue : value;

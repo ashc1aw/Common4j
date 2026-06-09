@@ -39,6 +39,8 @@ public final class IdUtils {
 
     /**
      * Returns the default Snowflake instance, creating it lazily if needed.
+     *
+     * @return the default {@link Snowflake} instance
      */
     public static Snowflake getSnowflake() {
         Snowflake sf = DEFAULT.get();

@@ -25,16 +25,14 @@ import java.util.function.Function;
  * // forest = [Electronics → [Phones, Laptops], Books]
  * }</pre>
  *
- * <h3>Custom root marker</h3>
- * When {@code null} is not the root sentinel (e.g. 0L or ""):
+ * Custom root marker: when {@code null} is not the root sentinel (e.g. 0L or ""):
  * <pre>{@code
  * TreeBuilder.build(nodes, Menu::id, Menu::parentId, 0L);
  * }</pre>
  *
- * <h3>Edge cases</h3>
- * Nodes whose parent id does not match any id in the collection (orphans)
+ * Edge cases: nodes whose parent id does not match any id in the collection (orphans)
  * are treated as roots. Input must not contain cycles; the result of building
- * a cyclic graph is undefined (likely a {@link StackOverflowError}).
+ * a cyclic graph is undefined (likely a {@link StackOverflowError}.
  */
 public final class TreeBuilder {
 
@@ -45,9 +43,19 @@ public final class TreeBuilder {
     /**
      * A node in the resulting tree, holding the original data and its children.
      * Both the data and the children list are never null.
+     *
+     * @param <T>      the node data type
+     * @param data     the original node data, never null
+     * @param children the child nodes list, never null (empty list for leaf nodes)
      */
     public record TreeNode<T>(T data, List<TreeNode<T>> children) {
-        public TreeNode {
+        /**
+     * Creates a new tree node, validating that data and children are non-null.
+     *
+     * @param data     the original node data, never null after construction
+     * @param children the child nodes list, copied into an unmodifiable list
+     */
+    public TreeNode {
             Objects.requireNonNull(data);
             children = List.copyOf(children);
         }
@@ -57,6 +65,8 @@ public final class TreeBuilder {
      * Builds a forest from a flat collection.
      * Nodes whose {@code parentIdGetter} returns {@code null} become roots.
      *
+     * @param <T>            the node data type
+     * @param <K>            the id/key type
      * @param nodes          the flat collection of nodes
      * @param idGetter       extracts the unique identifier from a node
      * @param parentIdGetter extracts the parent identifier from a node (null = root)
@@ -75,6 +85,8 @@ public final class TreeBuilder {
      * Builds a forest from a flat collection, treating {@code rootParentId} as
      * the sentinel value that marks a root node.
      *
+     * @param <T>            the node data type
+     * @param <K>            the id/key type
      * @param nodes          the flat collection of nodes
      * @param idGetter       extracts the unique identifier from a node
      * @param parentIdGetter extracts the parent identifier from a node

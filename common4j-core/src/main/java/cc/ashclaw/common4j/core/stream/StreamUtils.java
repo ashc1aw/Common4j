@@ -12,13 +12,13 @@ import java.util.stream.StreamSupport;
 /**
  * Stream utilities bridging gaps the JDK's rich Stream API still leaves open.
  *
- * <h3>Iterator / Enumeration to Stream</h3>
+ * <b>Iterator / Enumeration to Stream</b>
  * <pre>{@code
  * var stream = StreamUtils.stream(legacyLib.iterator());
  * }</pre>
  * Instead of the verbose {@code StreamSupport.stream(Spliterators.spliteratorUnknownSize(it, 0), false)}.
  *
- * <h3>Zip two streams</h3>
+ * <b>Zip two streams</b>
  * <pre>{@code
  * var ids   = Stream.of(1, 2, 3);
  * var names = Stream.of("a", "b", "c");
@@ -36,6 +36,7 @@ public final class StreamUtils {
     /**
      * Wraps an {@link Iterator} as a sequential, non-parallel {@link Stream}.
      *
+     * @param <T>      the element type
      * @param iterator the source iterator, must not be null
      * @return a new sequential stream consuming the iterator
      */
@@ -50,6 +51,7 @@ public final class StreamUtils {
      * Wraps an {@link Enumeration} as a sequential, non-parallel {@link Stream}.
      * Useful for bridging legacy APIs (JDBC, servlets, etc.).
      *
+     * @param <T>         the element type
      * @param enumeration the source enumeration, must not be null
      * @return a new sequential stream consuming the enumeration
      */
@@ -72,6 +74,9 @@ public final class StreamUtils {
      *     .toList();  // ["1a", "2b"]
      * }</pre>
      *
+     * @param <A>     the first stream's element type
+     * @param <B>     the second stream's element type
+     * @param <R>     the zipped result type
      * @param first   the first stream, must not be null
      * @param second  the second stream, must not be null
      * @param zipper  combines elements from both streams

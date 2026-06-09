@@ -23,6 +23,12 @@ public record DateRange<T extends Temporal & Comparable<? super T>>(
         boolean startInclusive,
         boolean endInclusive) {
 
+    /**
+     * Validates that start is not null, end is not null, and start is not after end.
+     *
+     * @throws NullPointerException     if start or end is null
+     * @throws IllegalArgumentException if start is after end
+     */
     public DateRange {
         Objects.requireNonNull(start, "start must not be null");
         Objects.requireNonNull(end, "end must not be null");

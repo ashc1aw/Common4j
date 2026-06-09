@@ -17,7 +17,7 @@ import java.util.Objects;
  * AES-256-GCM encryption utilities — safe defaults wrapped behind a
  * two-line API.
  *
- * <h3>Usage</h3>
+ * Usage example:
  * <pre>{@code
  * // Generate and store a key
  * var keyBase64 = AesUtils.generateKeyBase64();  // save to config
@@ -45,7 +45,11 @@ public final class AesUtils {
 
     // -- Key generation --------------------------------------------------
 
-    /** Generates a new random 256-bit AES key. */
+    /**
+     * Generates a new random 256-bit AES key.
+     *
+     * @return a new {@link SecretKey} suitable for AES-256-GCM encryption/decryption
+     */
     public static SecretKey generateKey() {
         try {
             var keyGen = KeyGenerator.getInstance("AES");
@@ -56,7 +60,11 @@ public final class AesUtils {
         }
     }
 
-    /** Generates a new random 256-bit AES key and returns it as a base64 string. */
+    /**
+     * Generates a new random 256-bit AES key and returns it as a base64 string.
+     *
+     * @return base64-encoded 256-bit key (44 characters)
+     */
     public static String generateKeyBase64() {
         return Base64.getEncoder().encodeToString(generateKey().getEncoded());
     }
@@ -64,6 +72,11 @@ public final class AesUtils {
     /**
      * Loads a key from a base64-encoded string previously returned by
      * {@link #generateKeyBase64()}.
+     *
+     * @param base64 the base64-encoded key, must not be null, must be exactly 32 bytes when decoded
+     * @return the reconstructed {@link SecretKey}
+     * @throws NullPointerException     if base64 is null
+     * @throws IllegalArgumentException if the decoded key length is not 32 bytes (256 bits)
      */
     public static SecretKey keyFromBase64(String base64) {
         Objects.requireNonNull(base64, "base64 must not be null");
@@ -80,6 +93,10 @@ public final class AesUtils {
     /**
      * Encrypts the plaintext and returns a base64-encoded ciphertext
      * (random IV + GCM ciphertext).
+     *
+     * @param plaintext the UTF-8 string to encrypt, must not be null
+     * @param key       the secret key, must not be null
+     * @return base64-encoded ciphertext (IV + encrypted data + auth tag)
      */
     public static String encrypt(String plaintext, SecretKey key) {
         Objects.requireNonNull(plaintext, "plaintext must not be null");
@@ -87,7 +104,13 @@ public final class AesUtils {
         return encrypt(plaintext.getBytes(StandardCharsets.UTF_8), key);
     }
 
-    /** Convenience overload that accepts a base64-encoded key. */
+    /**
+     * Convenience overload that accepts a base64-encoded key.
+     *
+     * @param plaintext the UTF-8 string to encrypt, must not be null
+     * @param keyBase64 the base64-encoded key from {@link #generateKeyBase64()}, must not be null
+     * @return base64-encoded ciphertext (IV + encrypted data + auth tag)
+     */
     public static String encrypt(String plaintext, String keyBase64) {
         Objects.requireNonNull(plaintext, "plaintext must not be null");
         Objects.requireNonNull(keyBase64, "keyBase64 must not be null");
@@ -97,6 +120,10 @@ public final class AesUtils {
     /**
      * Encrypts the plaintext bytes and returns a base64-encoded ciphertext
      * (random IV + GCM ciphertext).
+     *
+     * @param plaintext the bytes to encrypt, must not be null
+     * @param key       the secret key, must not be null
+     * @return base64-encoded ciphertext (IV + encrypted data + auth tag)
      */
     public static String encrypt(byte[] plaintext, SecretKey key) {
         Objects.requireNonNull(plaintext, "plaintext must not be null");
@@ -121,6 +148,11 @@ public final class AesUtils {
     /**
      * Decrypts a base64-encoded ciphertext previously produced by
      * {@link #encrypt}.
+     *
+     * @param ciphertext the base64-encoded ciphertext from {@link #encrypt}, must not be null
+     * @param key        the secret key used during encryption, must not be null
+     * @return the decrypted UTF-8 string
+     * @throws IllegalArgumentException if the ciphertext is malformed or decryption fails
      */
     public static String decrypt(String ciphertext, SecretKey key) {
         Objects.requireNonNull(ciphertext, "ciphertext must not be null");
@@ -128,7 +160,14 @@ public final class AesUtils {
         return new String(decryptToBytes(ciphertext, key), StandardCharsets.UTF_8);
     }
 
-    /** Convenience overload that accepts a base64-encoded key. */
+    /**
+     * Convenience overload that accepts a base64-encoded key.
+     *
+     * @param ciphertext the base64-encoded ciphertext from {@link #encrypt}, must not be null
+     * @param keyBase64  the base64-encoded key from {@link #generateKeyBase64()}, must not be null
+     * @return the decrypted UTF-8 string
+     * @throws IllegalArgumentException if the ciphertext is malformed or decryption fails
+     */
     public static String decrypt(String ciphertext, String keyBase64) {
         Objects.requireNonNull(ciphertext, "ciphertext must not be null");
         Objects.requireNonNull(keyBase64, "keyBase64 must not be null");
@@ -137,6 +176,11 @@ public final class AesUtils {
 
     /**
      * Decrypts a base64-encoded ciphertext and returns the raw plaintext bytes.
+     *
+     * @param ciphertext the base64-encoded ciphertext from {@link #encrypt}, must not be null
+     * @param key        the secret key used during encryption, must not be null
+     * @return the decrypted raw bytes
+     * @throws IllegalArgumentException if the ciphertext is too short or decryption fails
      */
     public static byte[] decryptToBytes(String ciphertext, SecretKey key) {
         Objects.requireNonNull(ciphertext, "ciphertext must not be null");

@@ -15,17 +15,17 @@ import java.util.Objects;
  * String-to-type coercion for the types most common in configuration parsing,
  * file import, and annotation-driven mapping.
  *
- * <h3>Usage</h3>
+ * Usage example:
  * <pre>{@code
  * int port = ConvertUtils.to("8080", int.class);
  * LocalDate d = ConvertUtils.to("2024/06/15", LocalDate.class, "yyyy/MM/dd");
  * BigDecimal bd = ConvertUtils.to("1,234.56", BigDecimal.class, "#,##0.00");
  * }</pre>
  *
- * <p>For blank or empty input, {@link #defaultValue(Class)} determines the result:
+ * For blank or empty input, {@link #defaultValue(Class)} determines the result:
  * {@code null} for reference types, 0 for numeric primitives, false for boolean.
  *
- * <p>This is a low-level utility. The typed {@code to()} methods are preferred
+ * This is a low-level utility. The typed {@code to()} methods are preferred
  * for application code; {@code coerce()} exists for framework-style dispatch
  * where the target type is known only at runtime.
  */
@@ -37,13 +37,28 @@ public final class ConvertUtils {
 
     // ── Typed convenience API ────────────────────────────────────────
 
-    /** Coerces a string to the given type with sensible defaults. */
+    /**
+     * Coerces a string to the given type with sensible defaults.
+     *
+     * @param <T>        the target type
+     * @param value      the string to convert, may be null
+     * @param targetType the target class
+     * @return the converted value, or the type's default if blank
+     */
     @SuppressWarnings("unchecked")
     public static <T> T to(String value, Class<T> targetType) {
         return (T) coerce(value, targetType, "");
     }
 
-    /** Coerces a string to the given type using a format pattern for numbers/dates. */
+    /**
+     * Coerces a string to the given type using a format pattern for numbers/dates.
+     *
+     * @param <T>        the target type
+     * @param value      the string to convert, may be null
+     * @param targetType the target class
+     * @param format     optional format pattern (e.g. {@code "#,##0.00"} or {@code "yyyy/MM/dd"})
+     * @return the converted value, or the type's default if blank
+     */
     @SuppressWarnings("unchecked")
     public static <T> T to(String value, Class<T> targetType, String format) {
         return (T) coerce(value, targetType, format);
@@ -114,6 +129,9 @@ public final class ConvertUtils {
     /**
      * Returns the natural "zero" value for a type: {@code null} for reference types,
      * 0 for numeric primitives, false for boolean.
+     *
+     * @param type the target type
+     * @return the default value for the given type
      */
     public static Object defaultValue(Class<?> type) {
         Objects.requireNonNull(type, "type must not be null");
