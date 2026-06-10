@@ -1,3 +1,4 @@
+/** Common4j POI — Excel &amp; Word read/write/template-fill via Apache POI. */
 module cc.ashclaw.common4j.poi {
     requires cc.ashclaw.common4j.core;
     requires org.apache.poi.ooxml;
