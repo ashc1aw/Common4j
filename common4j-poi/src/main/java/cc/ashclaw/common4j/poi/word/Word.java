@@ -17,7 +17,7 @@ import java.util.Objects;
 /**
  * Entry point for reading Word forms and filling Word templates.
  *
- * <h3>Read (form extraction)</h3>
+ * Read (form extraction):
  * <pre>{@code
  * // Get all label-value pairs from tables
  * Map<String, String> fields = Word.read(docxFile).toFields();
@@ -29,7 +29,7 @@ import java.util.Objects;
  * Map<String, String> f = Word.read(docxFile).table(1).toFields();
  * }</pre>
  *
- * <h3>Template fill</h3>
+ * Template fill:
  * <pre>{@code
  * // Simple key-value
  * Word.fromTemplate(in)

@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * Entry point for reading and writing Excel files.
  *
- * <h3>Read</h3>
+ * Read:
  * <pre>{@code
  * List<User> users = Excel.read(file).toList(User.class);
  *
@@ -27,7 +27,7 @@ import java.util.Objects;
  *     .toResult(User.class);
  * }</pre>
  *
- * <h3>Write</h3>
+ * Write:
  * <pre>{@code
  * // Annotation-driven
  * Excel.write(users).to(outputStream);
@@ -48,7 +48,7 @@ import java.util.Objects;
  *     .to(outputStream);
  * }</pre>
  *
- * <h3>Template fill</h3>
+ * Template fill:
  * <pre>{@code
  * Excel.fromTemplate(templateStream)
  *     .fill("Users", users, 2)   // data starts at row 2

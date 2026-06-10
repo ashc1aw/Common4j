@@ -24,39 +24,53 @@ import java.util.Objects;
  */
 public sealed interface HeaderNode permits HeaderNode.SingleLevel, HeaderNode.MultiLevel {
 
-    /** Number of header rows (tree depth). */
+    /** Returns the number of header rows (tree depth).
+     * @return the tree depth (1 for single-level, 2+ for multi-level) */
     int depth();
 
-    /** Total leaf-column count. */
+    /** Returns the total leaf-column count.
+     * @return the number of leaf columns at the bottom level */
     int leafCount();
 
-    /** Labels at the given depth level (0 = top row). */
+    /** Returns the labels at the given depth level (0 = top row).
+     * @param level the zero-based row index
+     * @return the list of labels at that level */
     List<String> labels(int level);
 
     /**
-     * Merge regions for the header rows (top-left inclusive, bottom-right exclusive):
+     * Returns merge regions for the header rows (top-left inclusive, bottom-right exclusive):
      * each entry is {@code [firstRow, lastRowExcl, firstCol, lastColExcl]}.
+     *
+     * @return list of merge region arrays, empty for single-level headers
      */
     List<int[]> mergeRegions();
 
-    /** Returns the leaf labels in column order (the bottom row). */
+    /** Returns the leaf labels in column order (the bottom row).
+     * @return the leaf column labels in left-to-right order */
     List<String> leafLabels();
 
     // -- Factory methods -------------------------------------------------
 
-    /** Single-row header. */
+    /** Creates a single-row header from a label list.
+     * @param labels the column labels, must not be null
+     * @return a single-level {@link HeaderNode} */
     static HeaderNode simple(List<String> labels) {
         return new SingleLevel(List.copyOf(labels));
     }
 
-    /** Single-row header (varargs). */
+    /** Creates a single-row header from varargs labels.
+     * @param labels the column labels
+     * @return a single-level {@link HeaderNode} */
     static HeaderNode simple(String... labels) {
         return new SingleLevel(List.of(labels));
     }
 
     /**
-     * Multi-level header. Each list in {@code levels} is one row,
+     * Creates a multi-level header. Each list in {@code levels} is one row,
      * from top to bottom. Adjacent identical labels in a row are merged.
+     *
+     * @param levels one or more rows of labels, each row from top to bottom, must not be null or empty
+     * @return a multi-level {@link HeaderNode}
      */
     @SafeVarargs
     static HeaderNode of(List<String>... levels) {

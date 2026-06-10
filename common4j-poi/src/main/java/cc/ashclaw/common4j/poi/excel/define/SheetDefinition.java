@@ -15,7 +15,7 @@ import java.util.Set;
  * <p>Built programmatically for complex cases. For simple annotation-driven
  * scenarios, see {@link cc.ashclaw.common4j.poi.excel.Excel}.
  *
- * <h3>Examples</h3>
+ * Examples:
  * <pre>{@code
  * // Simple
  * var def = SheetDefinition.of("Users")
