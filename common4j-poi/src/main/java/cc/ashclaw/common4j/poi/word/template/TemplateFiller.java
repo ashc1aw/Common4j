@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  * runs) by merging runs during replacement. Supports table row expansion
  * for list data.
  *
- * <h3>Simple replacement</h3>
+ * Simple replacement:
  * <pre>{@code
  * Word.fromTemplate(in)
  *     .put("partyA", "Acme Corp")
@@ -40,14 +40,14 @@ import java.util.regex.Pattern;
  *     .to(out);
  * }</pre>
  *
- * <h3>Table row expansion</h3>
+ * Table row expansion:
  * <pre>{@code
  * Word.fromTemplate(in)
  *     .table("items", itemList)  // expands ${items.name}, ${items.price}
  *     .to(out);
  * }</pre>
  *
- * <h3>POJO-driven fill</h3>
+ * POJO-driven fill:
  * <pre>{@code
  * Word.fromTemplate(in)
  *     .fill(contract)  // reads record fields or bean properties
