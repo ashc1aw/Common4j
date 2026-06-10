@@ -33,11 +33,21 @@ public final class FormExtractor {
     private final XWPFDocument doc;
     private int tableIndex = -1; // -1 = scan all tables
 
+    /**
+     * Creates a new form extractor for the given document.
+     *
+     * @param doc the Word document to extract from, must not be null
+     */
     public FormExtractor(XWPFDocument doc) {
         this.doc = Objects.requireNonNull(doc, "doc must not be null");
     }
 
-    /** Target a specific table by index (0-based). Default scans all tables. */
+    /**
+     * Targets a specific table by index (0-based). By default, scans all tables.
+     *
+     * @param index the zero-based table index
+     * @return this instance for method chaining
+     */
     public FormExtractor table(int index) {
         this.tableIndex = index;
         return this;
@@ -48,6 +58,8 @@ public final class FormExtractor {
     /**
      * Extracts all label-value pairs into a map.
      * Keys and values are trimmed strings; empty labels are skipped.
+     *
+     * @return an ordered map of label → value pairs
      */
     public Map<String, String> toFields() {
         var result = new LinkedHashMap<String, String>();
@@ -66,6 +78,9 @@ public final class FormExtractor {
     /**
      * Maps label-value pairs to a POJO or record using {@link WordField} annotations.
      *
+     * @param <T>  the target type
+     * @param type the target class (POJO or record), must have a no-arg constructor or canonical constructor
+     * @return the populated instance
      * @throws IllegalArgumentException if a required label is missing
      */
     public <T> T toBean(Class<T> type) {
