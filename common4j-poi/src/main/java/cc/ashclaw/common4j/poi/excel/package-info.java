@@ -1,7 +1,7 @@
 /**
  * Excel read / write utilities built on Apache POI.
  *
- * <h3>Quick start</h3>
+ * Quick start:
  * <pre>{@code
  * // Export — 1 line
  * Excel.write(users).to(Paths.get("users.xlsx"));
