@@ -33,12 +33,12 @@ import java.util.function.Function;
  * Writes POJOs or row data to Excel files with declarative styling,
  * complex headers, and cell merging.
  *
- * <h3>Simple export (annotation-driven)</h3>
+ * Simple export (annotation-driven):
  * <pre>{@code
  * Excel.write(users).to(outputStream);
  * }</pre>
  *
- * <h3>Multi-sheet with custom definition</h3>
+ * Multi-sheet with custom definition:
  * <pre>{@code
  * Excel.write()
  *     .sheet("Users", users)
