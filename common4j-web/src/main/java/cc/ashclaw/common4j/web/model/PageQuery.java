@@ -3,7 +3,7 @@ package cc.ashclaw.common4j.web.model;
 /**
  * Pagination request parameters, 1-based page numbering.
  *
- * <h3>Usage</h3>
+ * Usage example:
  * <pre>{@code
  * // GET /users?page=1&size=20
  * PageQuery pq = new PageQuery(1, 20);
@@ -20,6 +20,9 @@ public record PageQuery(int page, int size) {
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 100;
 
+    /**
+     * Validates and clamps page to at least 1, size to [{@value #MIN_SIZE}, {@value #MAX_SIZE}].
+     */
     public PageQuery {
         if (page < 1) {
             page = DEFAULT_PAGE;
@@ -36,7 +39,12 @@ public record PageQuery(int page, int size) {
         this(DEFAULT_PAGE, DEFAULT_SIZE);
     }
 
-    /** Creates a query with the given page, default size. */
+    /**
+     * Creates a query with the given page and default size.
+     *
+     * @param page the page number (1-based)
+     * @return a {@link PageQuery} with the given page and default size
+     */
     public static PageQuery of(int page) {
         return new PageQuery(page, DEFAULT_SIZE);
     }
@@ -48,6 +56,8 @@ public record PageQuery(int page, int size) {
      * var pq = new PageQuery(3, 20);
      * pq.offset();  // 40
      * }</pre>
+     *
+     * @return the zero-based offset into the full result set
      */
     public int offset() {
         return (page - 1) * size;

@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * A page of records with metadata — the standard paginated response shape.
  *
- * <h3>Usage</h3>
+ * Usage example:
  * <pre>{@code
  * PageQuery pq = new PageQuery(1, 20);
  * List<User> users = userService.listByPage(pq);
@@ -27,6 +27,11 @@ import java.util.function.Function;
  */
 public record PageResult<T>(List<T> records, long total, int page, int size) {
 
+    /**
+     * Validates that records is non-null.
+     *
+     * @throws NullPointerException if records is null
+     */
     public PageResult {
         Objects.requireNonNull(records, "records must not be null");
     }
@@ -34,9 +39,11 @@ public record PageResult<T>(List<T> records, long total, int page, int size) {
     /**
      * Creates a page result from a list, total count, and the original query.
      *
+     * @param <T>     the record type
      * @param records the page contents
      * @param total   total item count
      * @param query   the originating page query
+     * @return a new {@link PageResult} with unmodifiable records list
      */
     public static <T> PageResult<T> of(List<T> records, long total, PageQuery query) {
         return new PageResult<>(
@@ -48,7 +55,11 @@ public record PageResult<T>(List<T> records, long total, int page, int size) {
 
     // ==================== Derived properties ====================
 
-    /** Total number of pages. */
+    /**
+     * Returns the total number of pages.
+     *
+     * @return total pages (0 if no records)
+     */
     public int totalPages() {
         if (total == 0) {
             return 0;
@@ -56,17 +67,29 @@ public record PageResult<T>(List<T> records, long total, int page, int size) {
         return (int) ((total + size - 1) / size);
     }
 
-    /** Whether there is a next page. */
+    /**
+     * Returns whether there is a next page.
+     *
+     * @return true if the current page is not the last page
+     */
     public boolean hasNext() {
         return page < totalPages();
     }
 
-    /** Whether there is a previous page. */
+    /**
+     * Returns whether there is a previous page.
+     *
+     * @return true if the current page is not the first page
+     */
     public boolean hasPrev() {
         return page > 1;
     }
 
-    /** Whether this page is empty. */
+    /**
+     * Returns whether this page contains no records.
+     *
+     * @return true if the records list is empty
+     */
     public boolean isEmpty() {
         return records.isEmpty();
     }
@@ -75,6 +98,10 @@ public record PageResult<T>(List<T> records, long total, int page, int size) {
 
     /**
      * Transforms the records in this page, keeping metadata intact.
+     *
+     * @param <U>    the transformed record type
+     * @param mapper the transformation function applied to each record
+     * @return a new {@link PageResult} with mapped records and unchanged metadata
      */
     @SuppressWarnings("unchecked")
     public <U> PageResult<U> map(Function<? super T, ? extends U> mapper) {
