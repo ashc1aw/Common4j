@@ -2,13 +2,13 @@
  * Lightweight retry with exponential backoff and jitter — fills a gap
  * the JDK leaves completely open.
  *
- * <h3>Quick start</h3>
+ * Quick start:
  * <pre>{@code
  * var retryer = new Retryer(RetryConfig.DEFAULTS);
  * String result = retryer.execute(() -> httpClient.get(url));
  * }</pre>
  *
- * <h3>Custom configuration</h3>
+ * Custom configuration:
  * <pre>{@code
  * var config = RetryConfig.builder()
  *     .maxAttempts(3)

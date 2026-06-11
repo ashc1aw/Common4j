@@ -6,7 +6,7 @@ import java.util.function.Function;
 /**
  * A generic API response envelope carrying a business code, message, and payload.
  *
- * <h3>Usage</h3>
+ * Usage example:
  * <pre>{@code
  * // Success with data
  * return R.ok(user);
@@ -31,40 +31,80 @@ import java.util.function.Function;
  */
 public record R<T>(int code, String message, T data) {
 
+    /**
+     * Validates that the message is non-null.
+     *
+     * @throws NullPointerException if message is null
+     */
     public R {
         Objects.requireNonNull(message, "message must not be null");
     }
 
     // ==================== Static factories ====================
 
-    /** Returns a success response with no payload. */
+    /**
+     * Returns a success response with no payload.
+     *
+     * @param <T> the payload type
+     * @return a success {@link R} with code 0 and no data
+     */
     public static <T> R<T> ok() {
         return new R<>(0, "ok", null);
     }
 
-    /** Returns a success response with the given payload. */
+    /**
+     * Returns a success response with the given payload.
+     *
+     * @param <T>  the payload type
+     * @param data the response payload
+     * @return a success {@link R} with code 0 and the given data
+     */
     public static <T> R<T> ok(T data) {
         return new R<>(0, "ok", data);
     }
 
-    /** Returns a success response with a custom message and payload. */
+    /**
+     * Returns a success response with a custom message and payload.
+     *
+     * @param <T>     the payload type
+     * @param message the success message
+     * @param data    the response payload
+     * @return a success {@link R} with code 0, the given message and data
+     */
     public static <T> R<T> ok(String message, T data) {
         return new R<>(0, message, data);
     }
 
-    /** Returns a failure response with code 1. */
+    /**
+     * Returns a failure response with code 1.
+     *
+     * @param <T>     the payload type
+     * @param message the failure message
+     * @return a failure {@link R} with code 1 and the given message
+     */
     public static <T> R<T> fail(String message) {
         return new R<>(1, message, null);
     }
 
-    /** Returns a failure response with the given business code. */
+    /**
+     * Returns a failure response with the given business code.
+     *
+     * @param <T>     the payload type
+     * @param code    the failure code
+     * @param message the failure message
+     * @return a failure {@link R} with the given code and message
+     */
     public static <T> R<T> fail(int code, String message) {
         return new R<>(code, message, null);
     }
 
     // ==================== Query helpers ====================
 
-    /** {@code true} when code is 0 (legacy) or in the HTTP 2xx range. */
+    /**
+     * Returns {@code true} when code is 0 (legacy) or in the HTTP 2xx range.
+     *
+     * @return whether this response indicates success
+     */
     public boolean isSuccess() {
         return code == 0 || (code >= 200 && code < 300);
     }
@@ -78,6 +118,10 @@ public record R<T>(int code, String message, T data) {
      * R<User> r = userService.findById(1L);
      * R<UserDto> dto = r.map(User::toDto);
      * }</pre>
+     *
+     * @param <U>    the transformed payload type
+     * @param mapper the transformation function
+     * @return a new {@link R} with the mapped payload if successful; otherwise this instance cast
      */
     @SuppressWarnings("unchecked")
     public <U> R<U> map(Function<? super T, ? extends U> mapper) {
