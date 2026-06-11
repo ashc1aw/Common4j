@@ -66,7 +66,7 @@ Word.fromTemplate(templateStream)
 <dependency>
     <groupId>cc.ashclaw</groupId>
     <artifactId>common4j-poi</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 

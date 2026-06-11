@@ -79,6 +79,6 @@ client.fetch(); // auto-retries on failure
 <dependency>
     <groupId>cc.ashclaw</groupId>
     <artifactId>common4j-retry</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0.0</version>
 </dependency>
 ```
