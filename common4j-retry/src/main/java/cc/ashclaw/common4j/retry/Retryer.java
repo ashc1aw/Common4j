@@ -10,13 +10,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * Executes a task with retry logic — exponential backoff, optional jitter,
  * and configurable exception filtering.
  *
- * <h3>Basic usage</h3>
+ * Basic usage:
  * <pre>{@code
  * var retryer = new Retryer(RetryConfig.DEFAULTS);
  * String result = retryer.execute(() -> unstableService.fetch());
  * }</pre>
  *
- * <h3>Custom config</h3>
+ * Custom config:
  * <pre>{@code
  * var config = RetryConfig.builder()
  *     .maxAttempts(3)
@@ -39,7 +39,8 @@ public final class Retryer {
     private final RetryConfig config;
     private final ThreadLocalRandom rng = ThreadLocalRandom.current();
 
-    /** Creates a retryer with the given configuration. */
+    /** Creates a retryer with the given configuration.
+     * @param config the retry configuration, must not be null */
     public Retryer(RetryConfig config) {
         this.config = Objects.requireNonNull(config, "config must not be null");
     }
@@ -50,7 +51,8 @@ public final class Retryer {
      * Executes the task, retrying on failure according to the configuration.
      * Returns the result on the first successful attempt.
      *
-     * @param task the task to execute
+     * @param <T>  the return type of the task
+     * @param task the task to execute, must not be null
      * @return the task's return value
      * @throws RetryExhaustedException if all attempts fail
      * @throws InterruptedException    if the sleeping thread is interrupted
@@ -102,6 +104,7 @@ public final class Retryer {
      * Executes a runnable-style task with retry. Convenience overload for
      * tasks that return nothing.
      *
+     * @param task the runnable task to execute, must not be null
      * @throws RetryExhaustedException if all attempts fail
      * @throws InterruptedException    if the sleeping thread is interrupted
      */
