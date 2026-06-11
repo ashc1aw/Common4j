@@ -171,7 +171,7 @@ Bill of materials — import once, manage all Common4j versions centrally.
         <dependency>
             <groupId>cc.ashclaw</groupId>
             <artifactId>common4j-bom</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <version>2.0.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
