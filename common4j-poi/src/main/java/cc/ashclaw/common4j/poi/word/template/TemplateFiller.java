@@ -6,12 +6,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
